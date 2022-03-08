@@ -4,10 +4,10 @@ import cv2
 import numpy as np
 
 
-color_dict_1 = {"black": [0, 0, 0], 
+color_dict = {"black": [0, 0, 0], 
               "red": [0, 0, 255]}
 
-def gray2rgb(gray,color_dict_1):
+def gray2rgb(gray,color_dict):
     
     # 定義新涵式
     rgb_image = np.zeros(shape=(*gray.shape, 3))
@@ -16,9 +16,9 @@ def gray2rgb(gray,color_dict_1):
         for j in range(rgb_image.shape[1]):
             #不同的灰度值上不同的顏色
             if gray[i, j] < 127:
-                rgb_image[i, j, :] = color_dict_1["black"]
+                rgb_image[i, j, :] = color_dict["black"]
             else:
-                rgb_image[i, j, :] = color_dict_1["red"]
+                rgb_image[i, j, :] = color_dict["red"]
 
     return rgb_image.astype(np.uint8)
 
@@ -47,7 +47,7 @@ def addImage():
 img_result_well = cv2.imread("Photos/result_well.png",0)
 img_ROI_image = cv2.imread("Photos/ROI_image.png",0)
 ret, th2 = cv2.threshold(img_ROI_image, 70, 255, cv2.THRESH_BINARY)
-img_new_2 = gray2rgb(th2, color_dict_1)
+img_new_2 = gray2rgb(th2, color_dict)
 cv2.imwrite("Photos/ROI_image_new.png",img_new_2)
 
 
