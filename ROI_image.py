@@ -25,8 +25,6 @@ img = cv2.imread("Photos/ROI_image.png",0)
 ret, th = cv2.threshold(img, 70, 255, cv2.THRESH_BINARY)
 img_new = gray2rgb(th, color_dict)
 
-
-
 cv2.imshow("result",img_new)
 cv2.imwrite("Photos/ROI_image_new.png",img_new)
 cv2.waitKey(0)

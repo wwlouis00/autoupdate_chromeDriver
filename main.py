@@ -44,11 +44,9 @@ def addImage():
     
     cv2.destroyAllWindows()
 
-# img_result_well = cv2.imread("Photos/result_well.png",0)
 img_ROI_image = cv2.imread("Photos/ROI_image.png",0)
 ret, th2 = cv2.threshold(img_ROI_image, 70, 255, cv2.THRESH_BINARY)
 img_new_2 = gray2rgb(th2, color_dict)
 cv2.imwrite("Photos/ROI_image_new.png",img_new_2)
-
 
 addImage()
