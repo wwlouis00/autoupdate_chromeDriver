@@ -5,17 +5,17 @@ import tkinter as tk
 from tkinter import ttk
 
 def get_latest_chromedriver_version():
-    """從 Chrome for Testing 網站取得最新的 ChromeDriver 版本。"""
+    """Fetch the latest ChromeDriver version from the Chrome for Testing website."""
     url = "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
         return data["channels"]["Stable"]["version"], data["channels"]["Stable"]["downloads"]["chromedriver"]
     else:
-        raise Exception("無法取得最新 ChromeDriver 版本資訊。")
+        raise Exception("Failed to fetch the latest ChromeDriver version.")
 
 def download_chromedriver(download_url, download_path="chromedriver", progress_label=None, progress_bar=None):
-    """下載指定的 ChromeDriver。"""
+    """Download the specified ChromeDriver."""
     if not os.path.exists(download_path):
         os.makedirs(download_path)
     
@@ -23,7 +23,7 @@ def download_chromedriver(download_url, download_path="chromedriver", progress_l
     
     response = requests.get(download_url, stream=True)
     total_size = int(response.headers.get('content-length', 0))
-    block_size = 1024  # 每次讀取的塊大小
+    block_size = 1024  # Size of each read chunk
 
     downloaded_size = 0
     with open(file_name, 'wb') as file:
@@ -32,30 +32,30 @@ def download_chromedriver(download_url, download_path="chromedriver", progress_l
             downloaded_size += len(chunk)
             if progress_label and progress_bar:
                 progress = int(downloaded_size / total_size * 100)
-                progress_label.config(text=f"下載進度: {progress}%")
+                progress_label.config(text=f"Download Progress: {progress}%")
                 progress_bar['value'] = progress
                 root.update_idletasks()
 
     if downloaded_size == total_size:
-        print(f"ChromeDriver 下載完成，儲存於: {file_name}")
+        print(f"ChromeDriver downloaded successfully: {file_name}")
     else:
-        raise Exception("下載失敗，請確認 URL 是否正確。")
+        raise Exception("Download failed. Please check if the URL is correct.")
 
     return file_name
 
 def extract_chromedriver(file_path, extract_to="chromedriver"):
-    """解壓縮下載的 ChromeDriver。"""
+    """Extract the downloaded ChromeDriver zip file."""
     if file_path.endswith(".zip"):
         with zipfile.ZipFile(file_path, 'r') as zip_ref:
             zip_ref.extractall(extract_to)
-        print(f"ChromeDriver 已解壓縮至: {extract_to}")
+        print(f"ChromeDriver extracted to: {extract_to}")
     else:
-        raise Exception("僅支援 ZIP 格式的檔案解壓縮。")
+        raise Exception("Only ZIP files are supported for extraction.")
 
 def update_chromedriver():
     try:
         version, downloads = get_latest_chromedriver_version()
-        print(f"最新 ChromeDriver 版本為: {version}")
+        print(f"Latest ChromeDriver version: {version}")
         
         platform = os.name
         if platform == "nt":  # Windows
@@ -65,26 +65,26 @@ def update_chromedriver():
         elif platform == "posix" and os.uname().sysname == "Darwin":
             driver_info = next(item for item in downloads if "mac-x64" in item["url"])
         else:
-            raise Exception("未支援的平台。")
+            raise Exception("Unsupported platform.")
         
         download_url = driver_info["url"]
         downloaded_file = download_chromedriver(download_url, progress_label=progress_label, progress_bar=progress_bar)
         extract_chromedriver(downloaded_file)
         
-        result_label.config(text="ChromeDriver 已完成更新。")
+        result_label.config(text="ChromeDriver has been updated successfully.")
     except Exception as e:
-        result_label.config(text=f"發生錯誤: {e}")
+        result_label.config(text=f"Error occurred: {e}")
 
 # Tkinter GUI
 root = tk.Tk()
-root.title("ChromeDriver 更新")
+root.title("ChromeDriver Updater")
 
-# 下載按鈕和結果顯示
-update_button = tk.Button(root, text="更新 ChromeDriver", command=update_chromedriver)
+# Update button and result display
+update_button = tk.Button(root, text="Update ChromeDriver", command=update_chromedriver)
 update_button.pack(pady=10)
 
-# 進度條顯示
-progress_label = tk.Label(root, text="下載進度：0%")
+# Progress bar display
+progress_label = tk.Label(root, text="Download Progress: 0%")
 progress_label.pack(pady=5)
 
 progress_bar = ttk.Progressbar(root, orient="horizontal", length=300, mode="determinate")
