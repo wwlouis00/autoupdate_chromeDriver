@@ -1,36 +1,44 @@
-# ChromeDriver 自動更新工具
+# ChromeDriver Auto-Update Tool
 
-## 簡介
-本工具提供一個簡單的圖形化介面 (GUI)，用於自動下載並更新最新版本的 ChromeDriver。程式會從 Chrome for Testing 官方網站取得最新版本資訊，下載相應的驅動程式，並解壓縮到指定目錄。
+## Overview
 
-## 功能
-- 自動取得最新的 ChromeDriver 版本。
-- 根據系統類型 (Windows/Linux/macOS) 下載對應版本的 ChromeDriver。
-- 下載過程中顯示進度條。
-- 下載完成後自動解壓縮。
+This tool provides a simple graphical user interface (GUI) for automatically downloading and updating the latest version of ChromeDriver. The program fetches the latest version information from the official Chrome for Testing website, downloads the corresponding driver, and extracts it to a specified directory.
 
-## 環境需求
-- Python 3.x
-- 需要安裝 `requests` 和 `tkinter` 套件。
+## Features
 
-## 依賴套件
-請確保已安裝以下 Python 套件：
+* Automatically retrieves the latest ChromeDriver version.
+* Downloads the ChromeDriver version suitable for your system (Windows/Linux/macOS).
+* Displays a progress bar during the download.
+* Automatically extracts the driver after download.
+
+## System Requirements
+
+* Python 3.x
+* `requests` and `tkinter` Python packages.
+
+## Dependencies
+
+Please make sure the following Python packages are installed:
+
 ```sh
 pip install requests
 ```
-`tkinter` 為 Python 標準庫的一部分，無需額外安裝。
 
-## 使用方法
-1. 確保已安裝 `requests` 套件。
-2. 執行 Python 腳本。
-3. 點擊「更新 ChromeDriver」按鈕，程式將自動下載並解壓縮最新的 ChromeDriver。
+`tkinter` is included in the standard Python library and does not require installation.
 
-## 注意事項
-- 本工具會根據系統類型選擇適合的 ChromeDriver 版本。
-- 若執行過程中發生錯誤，請確認網路連線是否正常，或檢查 ChromeDriver 下載 URL 是否可用。
-- 目前支援 Windows、Linux 和 macOS 平台。
+## Usage
 
-## 參考資料
-- [Chrome for Testing 官方網站](https://googlechromelabs.github.io/chrome-for-testing/)
-- [ChromeDriver 官方下載](https://sites.google.com/chromium.org/driver/)
+1. Ensure the `requests` package is installed.
+2. Run the Python script.
+3. Click the "Update ChromeDriver" button. The program will automatically download and extract the latest ChromeDriver.
 
+## Notes
+
+* The tool automatically selects the appropriate ChromeDriver version based on your operating system.
+* If an error occurs during execution, please check your network connection or verify that the ChromeDriver download URL is accessible.
+* Supported platforms: Windows, Linux, and macOS.
+
+## References
+
+* [Chrome for Testing Official Website](https://googlechromelabs.github.io/chrome-for-testing/)
+* [ChromeDriver Official Downloads](https://sites.google.com/chromium.org/driver/)
